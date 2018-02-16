@@ -28,23 +28,23 @@
   function check(){
 	  if($_SERVER["REQUEST_METHOD"] == "POST"){
 		if(empty($this->firstName)){
-		$this->errorFirstName = 'First name is required';
+		$this->errorFirstName = '* First name is required';
 	   } else {
 		$this->count++;
 		//$this->errorFirstName = 'Input is okay';
 	   }
 	 
 	 if(empty($this->lastName)){
-		 $this->errorLastName = 'Last name is required';
+		 $this->errorLastName = '* Last name is required';
 	  }  else {
 		$this->count++;
 	   //$this->errorLastName = 'Input is okay';
 	  }
 	  
 	  if(empty($this->contact)){
-		 $this->errorContact = 'contact is required';
+		 $this->errorContact = '* Contact is required';
 	  }  else if(strlen($this->contact)<10){
-		  $this->errorContact = 'Length is less than 10';
+		  $this->errorContact = '* Contact Number is less than 10';
 	  } else{
 		$this->count++;
 	   //$this->errorContact = 'Input is okay';
@@ -53,11 +53,11 @@
 	  $this->email=test_input($this->email);
 	  
 	  if (empty($this->email)) {
-		$this->errorEmail = 'Email is required';
+		$this->errorEmail = '* Email is required';
 	  } else {
 		// check if e-mail address is well-formed
 		if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
-		  $this->errorEmail = 'Invalid email format'; 
+		  $this->errorEmail = '* Invalid email address'; 
 		} else {
 		  $this->count++;
 		  //$this->errorEmail = 'Correct';
@@ -65,7 +65,7 @@
 	  }
 	  
 	  if(empty($this->datee)){
-		  $this->errorDate = "Invalid Date";
+		  $this->errorDate = "* Select a Date";
 	  } else {
 		  $this->count++;
 		  // sahi he
@@ -159,7 +159,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			
 		}
 		?>"/>
-		<p class = "error"><?php echo $errorF;?></p>
+		<p class="text-danger error"><?php echo $errorF;?></p>
 	   </div>
 	   
 	   <div class="form-group">
@@ -172,7 +172,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			
 		}
 		?>"/>
-		<p class = "error"><?php echo $errorL;?></p>
+		<p class = "text-danger error"><?php echo $errorL;?></p>
 	   </div>
 	   
 	   <div class="form-group">
@@ -186,7 +186,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			
 		}
 		?>"/>
-		<p class = "error"><?php echo $errorC;?></p>
+		<p class = "text-danger error"><?php echo $errorC;?></p>
 	   </div>
 	   
 	   <div class="form-group">
@@ -199,7 +199,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			
 		}
 		?>"/>
-		<p class = ""><?php echo $errorE;?></p>
+		<p class = "text-danger error"><?php echo $errorE;?></p>
 	   </div>
 	   
 	   <div class="form-group">
@@ -212,7 +212,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			
 		}
 		?>"/>
-		<p class = "error"><?php echo $errorD;?></p>
+		<p class = "text-danger error"><?php echo $errorD;?></p>
 	   </div>
 	   
 	   
