@@ -1,0 +1,123 @@
+<?php
+	
+	function test_input($data) {
+	  $data = trim($data);
+	  $data = stripslashes($data);
+	  $data = htmlspecialchars($data);
+	  return $data;
+	}
+	
+  class validation {
+  public $firstName, $lastName, $contact, $email, $errorFirstName = '', $errorLastName = '', $errorContact = '',
+					$errorEmail='';
+  function __construct($fName, $lName, $contact, $email){
+    $this->firstName = $fName;
+    $this->lastName = $lName;
+	$this->contact = $contact;
+	$this->email = $email;
+  }
+
+  function check(){
+      if($_SERVER["REQUEST_METHOD"] == "POST"){
+        if(empty($this->firstName)){
+        $this->errorFirstName = 'First name is required';
+       } else {
+        $this->errorFirstName = 'Input is okay';
+       }
+     
+	 if(empty($this->lastName)){
+         $this->errorLastName = 'Last name is required';
+      }  else {
+       $this->errorLastName = 'Input is okay';
+      }
+	  
+	  if(empty($this->contact)){
+         $this->errorContact = 'contact is required';
+      }  else if(strlen($this->contact)<10){
+		  $this->errorContact = 'Length is less than 10';
+	  } else{
+       $this->errorContact = 'Input is okay';
+      }
+	  
+	  $this->email=test_input($this->email);
+	  
+	  if (empty($this->email)) {
+		$this->errorEmail = 'Email is required';
+	  } else {
+		// check if e-mail address is well-formed
+		if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+		  $this->errorEmail = 'Invalid email format'; 
+		} else {
+		  $this->errorEmail = 'Correct';
+		}
+	  }
+	  
+    }
+   }
+}
+$errorF=" ";
+$errorL=" ";
+$errorC=" ";
+$errorE=" ";
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ $obj = new validation($_POST['firstname'], $_POST['lastname'], $_POST['contact'], $_POST['email']);
+ $obj->check();	
+ $errorF = $obj->errorFirstName;
+ $errorL = $obj->errorLastName;
+ $errorC = $obj->errorContact;
+ $errorE = $obj->errorEmail;
+}
+
+?> 
+  <!DOCTYPE html>
+  <html lang = "en-US" dir = "ltr">
+   <head>
+    <title>Home</title>
+    <meta charset = "UTF-8"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   </head>
+   
+   
+   <body>
+   
+   
+   
+   <form method = "POST" action="<?php echo $_SERVER["PHP_SELF"]?>">
+   
+   <div class="form-group">
+    <label>First Name: </label>
+    <input type = "text" class="form-control" name = "firstname" placeholder = "Loda"/>
+    <p class = "error"><?php echo $errorF;?></p>
+   </div>
+   
+   <div class="form-group">
+	<label>Last Name: </label>
+    <input type = "password" class="form-control" name = "lastname" placeholder = "Lassan"/>
+    <p class = "error"><?php echo $errorL;?></p>
+   </div>
+   
+   <div class="form-group">
+	<label>Mobile No. : </label>
+    <input type = "tel" class="form-control" name = "contact" 
+	placeholder = "6969696969" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
+    <p class = "error"><?php echo $errorC;?></p>
+   </div>
+   
+   <div class="form-group">
+	<label>Email : </label>
+    <input type = "text" class="form-control" name = "email" placeholder = "loda.lassan@chutmarika.com"/>
+    <p class = "error"><?php echo $errorE;?></p>
+   </div>
+   
+   
+	<input type="submit" id="temp" class="btn btn-success">
+   
+   </form>
+   
+   
+   
+   
+  </body>
+ </html>
