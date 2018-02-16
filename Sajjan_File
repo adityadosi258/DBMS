@@ -95,6 +95,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	$obj->contact;
 	$obj->email;
 	$obj->datee;*/
+	
+	
+	
  } else {
 	 //nothing
 	 $GLOBALS['fn']=$obj->firstName;
@@ -149,33 +152,66 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	   <div class="form-group">
 		<label>First Name: </label>
 		<input type = "text" class="form-control" name = "firstname" placeholder = "Rakesh" 
-		val="<?php echo $fn; ?>"/>
+		value="<?php 
+		if($_SERVER["REQUEST_METHOD"] == "POST"){
+			echo $_POST['firstname'];
+		} else {
+			
+		}
+		?>"/>
 		<p class = "error"><?php echo $errorF;?></p>
 	   </div>
 	   
 	   <div class="form-group">
 		<label>Last Name: </label>
 		<input type = "password" class="form-control" name = "lastname" placeholder = "Kumar" 
-		val="<?php echo $ln; ?>"/>
+		value="<?php 
+		if($_SERVER["REQUEST_METHOD"] == "POST"){
+			echo $_POST['lastname'];
+		} else {
+			
+		}
+		?>"/>
 		<p class = "error"><?php echo $errorL;?></p>
 	   </div>
 	   
 	   <div class="form-group">
 		<label>Mobile No. : </label>
 		<input type = "tel" class="form-control" name = "contact" 
-		placeholder = "7292828500" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
+		placeholder = "7292828500" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+		value="<?php 
+		if($_SERVER["REQUEST_METHOD"] == "POST"){
+			echo $_POST['contact'];
+		} else {
+			
+		}
+		?>"/>
 		<p class = "error"><?php echo $errorC;?></p>
 	   </div>
 	   
 	   <div class="form-group">
 		<label>Email : </label>
-		<input type = "text" class="form-control" name = "email" placeholder = "r.k.suthar@gmail.com"/>
-		<p class = "error"><?php echo $errorE;?></p>
+		<input type = "text" class="form-control" name = "email" placeholder = "r.k.suthar@gmail.com" 
+		value="<?php 
+		if($_SERVER["REQUEST_METHOD"] == "POST"){
+			echo $_POST['email'];
+		} else {
+			
+		}
+		?>"/>
+		<p class = ""><?php echo $errorE;?></p>
 	   </div>
 	   
 	   <div class="form-group">
 		<label>Date : </label>
-		<input type = "date" class="form-control" name = "date"/>
+		<input type = "date" class="form-control" name = "date" 
+		value="<?php 
+		if($_SERVER["REQUEST_METHOD"] == "POST"){
+			echo $_POST['date'];
+		} else {
+			
+		}
+		?>"/>
 		<p class = "error"><?php echo $errorD;?></p>
 	   </div>
 	   
